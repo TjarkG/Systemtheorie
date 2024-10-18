@@ -10,7 +10,7 @@ def plot(x_axis: np.array, arrays: list[Tuple[np.array, str]], y_min, y_max):
     area = (x_axis[0] - 0.2, x_axis[-1] + 0.2, y_min, y_max)
 
     for i in range(len(arrays)):
-        plt.subplot(3, 1, i + 1)
+        plt.subplot(len(arrays), 1, i + 1)
         plt.stem(x_axis, arrays[i][0])
         plt.ylabel(arrays[i][1])
         plt.axis(area)
@@ -22,8 +22,8 @@ def plot(x_axis: np.array, arrays: list[Tuple[np.array, str]], y_min, y_max):
 
 def a_6_a_b(n, x):
     assert len(n) == len(x)
-    x_even = np.empty_like(x)
-    x_odd = np.empty_like(x)
+    x_even = np.zeros(len(x))
+    x_odd = np.zeros(len(x))
 
     for i in range(len(x)):
         x_even[i] = (x[i] + x[len(x) - 1 - i]) / 2
@@ -51,9 +51,9 @@ def a_6_c_d(t, x_f):
     def x_odd_f(time):
         return (x_f(time) - x_f(-time)) / 2
 
-    x = np.empty_like(t)
-    x_even = np.empty_like(t)
-    x_odd = np.empty_like(t)
+    x = np.zeros(len(t))
+    x_even = np.zeros(len(t))
+    x_odd = np.zeros(len(t))
     for i in range(t.size):
         x[i] = x_f(t[i])
         x_even[i] = x_even_f(t[i])
@@ -101,7 +101,7 @@ def a_6(part):
                     return 0
             a_6_c_d(t, x_f)
         case 'd':
-            t = np.arange(-3, 3, 0.01)
+            t = np.arange(-3, 4, 1)
 
             def x_f(time):
                 if time < -1:
@@ -116,4 +116,4 @@ def a_6(part):
 
 
 if __name__ == '__main__':
-    a_6('d')
+    a_6(input("Part: "))

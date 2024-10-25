@@ -80,8 +80,8 @@ def u(t):
         return 1
 
 
-def delta_dt(t):
-    if t == 0:
+def delta_dt(n):
+    if n == 0:
         return 1
     else:
         return 0

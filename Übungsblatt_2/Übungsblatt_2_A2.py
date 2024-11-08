@@ -12,7 +12,7 @@ def u(time):
 
 
 def delta(t, dt):
-    if t == 1:
+    if t == 0:
         return 1 / dt
     return 0
 

@@ -17,7 +17,10 @@ def delta(t, dt):
     return 0
 
 
-def a_1_printer(x_f, h_f):
+def a_1_printer(x_f, h_f, x_limits=None):
+    if x_limits is None:
+        x_limits = [-10.5, 10.5]
+
     t = np.linspace(-100, 100, int(2e5 + 1))
     # The timescale MUST be symmetric about t=0, otherwise the function scipy.signal.convolve() will give wrong results!
     dt = (t[-1] - t[0]) / (t.size - 1)  # time step: small enough to simulate integration
@@ -31,8 +34,6 @@ def a_1_printer(x_f, h_f):
     y = signal.convolve(x, h, 'same') * dt  # multiplication with the time interval (integration)
 
     plt.figure(figsize=(8, 8))
-
-    x_limits = [-10.5, 50.5]
 
     plt.subplot(311)
     plt.plot(t, x, 'b-')
@@ -65,7 +66,7 @@ def a_2(part):
             def h(t, _):
                 return math.exp(-t / 5) * u(t)
 
-            a_1_printer(x, h)
+            a_1_printer(x, h, [-10.5, 50.5])
         case 'a':
             def x(t):
                 return u(t - 3) - u(t - 5)
@@ -95,7 +96,7 @@ def a_2(part):
             def h(t, dt):
                 return -delta(t + 2, dt) + 2 * delta(t - 1, dt)
 
-            a_1_printer(x, h)
+            a_1_printer(x, h, [-5.5, 5.5])
 
 
 if __name__ == '__main__':

@@ -17,7 +17,9 @@ def delta(n):
     return 0
 
 
-def a_1_printer(h_f, x_f):
+def a_1_printer(h_f, x_f, x_limits=None):
+    if x_limits is None:
+        x_limits = [-10.5, 50.5]
     n = np.linspace(-100, 100, 201, dtype='int')
     # The timescale MUST be symmetric about n=0, otherwise the function scipy.signal.convolve() will give wrong results!
 
@@ -30,8 +32,6 @@ def a_1_printer(h_f, x_f):
     y = signal.convolve(x, h, 'same')
 
     plt.figure(figsize=(8, 8))
-
-    x_limits = [-10.5, 50.5]
 
     plt.subplot(311)
     plt.stem(n, x)
@@ -64,7 +64,7 @@ def a_1(part):
             def h(n):
                 return math.exp(-n / 5) * u(n)
 
-            a_1_printer(h, x)
+            a_1_printer(h, x, [-10.5, 50.5])
 
         case 'a':
             def x(n):
@@ -73,7 +73,7 @@ def a_1(part):
             def h(n):
                 return 2 * delta(n - 2) + 2 * delta(n + 3)
 
-            a_1_printer(h, x)
+            a_1_printer(h, x,[-10.5, 10.5])
 
         case 'b':
             def x(n):
@@ -82,7 +82,7 @@ def a_1(part):
             def h(n):
                 return u(n + 2)
 
-            a_1_printer(h, x)
+            a_1_printer(h, x,[-10.5, 10.5])
 
         case 'c':
             def x(n):
@@ -91,7 +91,7 @@ def a_1(part):
             def h(n):
                 return 4.0 ** n * u(2 - n)
 
-            a_1_printer(h, x)
+            a_1_printer(h, x,[-5.5, 15.5])
 
         case 'd':
             def x(n):
@@ -104,7 +104,7 @@ def a_1(part):
                     return 1
                 return 0
 
-            a_1_printer(h, x)
+            a_1_printer(h, x,[-0.5, 30.5])
 
 
 if __name__ == '__main__':

@@ -64,7 +64,7 @@ def a_1(part):
             def h(n):
                 return 5.0 ** n * u(3 - n)
 
-            # Kausal, BIBO Stabil
+            # nicht kausal, BIBO Stabil
             a_1_printer(h)
 
         case 'e':

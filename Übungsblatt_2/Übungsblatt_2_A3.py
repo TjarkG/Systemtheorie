@@ -29,13 +29,13 @@ def x_e(t, _):
     return u(t + 3)
 
 
-def a_3_printer(t, y):
+def a_3_printer(t, y, label = '$y(t)$'):
     plt.figure(figsize=(10, 5))
 
     x_limits = [-10.5, 10.5]
 
     plt.plot(t, y, 'g-')
-    plt.ylabel('$h(t)$')
+    plt.ylabel(label)
     plt.xlim(x_limits)
     if max(y) > 20000:
         plt.ylim(0, 200)
@@ -78,7 +78,7 @@ def a_3():
 
     # Plotte gesamte Impulsantwort
     # kausal, BIBO stabil, hat Gedächtnis
-    a_3_printer(t, h_ges)
+    a_3_printer(t, h_ges, '$h_{ges}(t)$')
 
 
 if __name__ == '__main__':

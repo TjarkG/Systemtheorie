@@ -37,7 +37,7 @@ def a_6_printer(n, h):
     plt.show()
 
 
-def a_3():
+def a_6():
     n = np.linspace(-100, 100, 201, dtype='int')
     # The timescale MUST be symmetric about n=0, otherwise the function scipy.signal.convolve() will give wrong results!
 
@@ -67,11 +67,15 @@ def a_3():
             s[i] += h_ges[k]"""
 
     # Summe von 0 - nur für kausale Systeme
-    for i in range(n.size):
+    """for i in range(n.size):
         if n[i] >= 0:
             for k in range(n[i] + 1):
-                s[i] += h_ges[n[k]]
-    # a_6_printer(n, s)
+                s[i] += h_ges[n[k]]"""
+
+    for i in range((n.size - 1) // 2, n.size):
+        s[i] = s[i - 1] + h_ges[i]
+
+    a_6_printer(n, s)
 
     # c) Impulsantwort aus Sprungantwort
     h_ges_2 = np.zeros(n.size)
@@ -83,4 +87,4 @@ def a_3():
 
 
 if __name__ == '__main__':
-    a_3()
+    a_6()

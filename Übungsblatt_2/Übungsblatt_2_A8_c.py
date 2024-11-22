@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-R = 10
-C = 10
+R = 1
+C = 1
 
 
 def u(t):
@@ -12,7 +12,7 @@ def u(t):
 
 
 def transfer_function(s):
-    return 1 / (R + C * s)
+    return 1 / (C * (s + 1 / (R * C)))
 
 
 def x_f(t, s):
@@ -20,7 +20,7 @@ def x_f(t, s):
 
 
 def y_f(t, s):
-    return 1 / (R + C * s) * (np.exp(s * t) - np.exp(-R / C * t)) * u(t)
+    return 1 / C * 1 / (s + 1 / (R * C)) * (np.exp(s * t) - np.exp(-1 / (R * C) * t)) * u(t)
 
 
 def a_8_c():
@@ -62,7 +62,7 @@ def a_8_c():
     # Plot Points on Transfer Function
     for i in range(len(sigma)):
         plt.plot(sigma[i], transfer_function(sigma[i]), color=color[i], marker='o')
-    plt.ylim([-1.2, 1.2])
+    plt.ylim([-12, 12])
     plt.ylabel('$H(s)$')
     plt.xlabel('$s = \\sigma$')
     plt.grid(True)
@@ -70,7 +70,7 @@ def a_8_c():
     plt.subplot(3, 1, 3)
     for i in range(len(sigma)):
         plt.plot(t, y[i], color=color[i], linestyle='-')
-    plt.ylim([-0.05, 0.2])
+    plt.ylim([-0.05, 2])
     plt.ylabel('$y(t)$')
     plt.xlabel('$t$')
     plt.grid(True)

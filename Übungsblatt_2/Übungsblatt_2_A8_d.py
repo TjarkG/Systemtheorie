@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from cmath import exp, pi
 
-R = 10
-C = 10
-a = R / C
+R = 1
+C = 1
+a = 1 / (R*C)
 
 omega = [1j * pi, 1j / 2 * pi, 1j / 5 * pi]
 color = ['blue', 'green', 'red']
@@ -18,7 +18,7 @@ def u(time):
 
 
 def transfer_function(s):
-    return 1 / (R + C * s)
+    return 1 / (C * (s + 1 / (R * C)))
 
 
 def x_f(t, s):
@@ -26,7 +26,7 @@ def x_f(t, s):
 
 
 def y_f(t, s):
-    return 1 / (R + C * s) * (exp(s * t) - exp(-R / C * t)) * u(t)
+    return 1 / C * 1 / (s + 1 / (R * C)) * (np.exp(s * t) - np.exp(-1 / (R * C) * t)) * u(t)
 
 
 def a_8_d():

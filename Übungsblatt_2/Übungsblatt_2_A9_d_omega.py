@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 from math import pi, cos
 from scipy import signal
 
-from Übungsblatt_2_A9_b import impulse_response
-
 R = 1e6
 C = 1e-6
 a = 1 / (R * C)
@@ -17,6 +15,10 @@ tau = (t_max - t_min) / n
 omega = [pi, 1 / 2 * pi, 1 / 5 * pi]
 color = ['blue', 'green', 'red']
 
+def impulse_response(t):
+    if 0 > t:
+        return 0
+    return 1 / ((1 + a * tau) ** (t + 1)) * u(t) - 1 / ((1 + a * tau) ** t) * u(t - 1)
 
 def u(time):
     if time < 0:
@@ -35,7 +37,10 @@ def a_9_c_1():
 
     x_real = np.zeros((len(omega), t.size))
     y_real = np.zeros((len(omega), t.size))
-    h = np.vectorize(impulse_response)(t_2)
+    h = np.zeros_like(t_2)
+
+    for i in range(n):
+        h[i] = impulse_response(t_2[i])
 
     for i in range(len(omega)):
         x_real[i] = np.vectorize(x_f)(t, omega[i])

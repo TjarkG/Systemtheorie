@@ -3,20 +3,22 @@ import matplotlib.pyplot as plt
 from math import exp
 from scipy import signal
 
-from Übungsblatt_2_A9_b import impulse_response
-
 R = 1e6
 C = 1e-6
 a = 1 / (R * C)
 
-t_min = -10.0
-t_max = 10.0
-n = 10000
+t_min = -50.0
+t_max = 50.0
+n = 100001
 tau = (t_max - t_min) / n
 
 sigma = [-1, -0.5, 0, 0.1, 0.5]
 color = ['blue', 'green', 'red', 'black', 'purple']
 
+def impulse_response(t):
+    if 0 > t:
+        return 0
+    return 1 / ((1 + a * tau) ** (t + 1)) * u(t) - 1 / ((1 + a * tau) ** t) * u(t - 1)
 
 def u(time):
     if time < 0:
@@ -31,14 +33,20 @@ def x_f(t, omega_0):
 
 def a_9_c_2():
     t = np.linspace(t_min, t_max, n)
-    t_2 = np.linspace(t_min/tau, t_max/tau, n)
+    t_2 = np.linspace(-(n-1)/2, (n-1)/2, n)
+    print(t_2[0], t_2[-1], t.size, t_2.size)
 
-    x_real = np.zeros((len(sigma), t.size))
-    y_real = np.zeros((len(sigma), t.size))
-    h = np.vectorize(impulse_response)(t_2)
+    x_real = np.zeros((len(sigma), n))
+    y_real = np.zeros((len(sigma), n))
+    h = np.zeros_like(t_2)
+
+    for i in range(n):
+        h[i] = impulse_response(t_2[i])
 
     for i in range(len(sigma)):
-        x_real[i] = np.vectorize(x_f)(t, sigma[i])
+        for j in range(n):
+            x_real[i][j] = x_f(t[j], sigma[i])
+
         y_real[i] = signal.convolve(x_real[i], h, 'same')
 
     plt.figure(figsize=(12, 8))

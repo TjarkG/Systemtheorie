@@ -44,7 +44,7 @@ def a_9_c_1():
 
     for i in range(len(omega)):
         x_real[i] = np.vectorize(x_f)(t, omega[i])
-        y_real[i] = signal.convolve(x_real[i], h, 'same')*tau
+        y_real[i] = signal.convolve(x_real[i], h, 'same')
 
     plt.figure(figsize=(12, 8))
 

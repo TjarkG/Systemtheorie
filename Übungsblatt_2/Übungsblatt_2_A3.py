@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
-from Übungsblatt_2_A5 import a_5_printer
 
 
 def u(time):

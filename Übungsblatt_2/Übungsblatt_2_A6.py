@@ -53,7 +53,7 @@ def a_6():
     # a_6_printer(n, h_2)
 
     # a) Plotte Impulsantwort
-    # kausal, BIBO stabil, hat Gedächtnis
+    # kausal, nicht BIBO stabil, hat Gedächtnis
     h_ges = signal.convolve(h_1, h_2, 'same')
     # a_6_printer(n, h_ges)
 
